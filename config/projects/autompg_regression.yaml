@@ -1,0 +1,39 @@
+project:
+  name: autompg_regression
+
+  dataset: autompg
+
+  model:
+    name: autompg_regressor
+    params:
+      fit_intercept: true
+
+  features:
+    - num_cylinders
+    - displacement
+    - horsepower
+    - weight
+    - acceleration
+    - year
+    - origin
+
+  target: mpg
+
+  training:
+    test_split: 0.3
+
+  tasks:
+    load_data:
+      next:
+        - preprocess_data
+    preprocess_data:
+      next:
+        - train_model
+    train_model:
+      next:
+        - evaluate_model
+    evaluate_model:
+      next:
+        - create_report
+    create_report:
+      next: []
